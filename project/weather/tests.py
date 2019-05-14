@@ -49,7 +49,7 @@ class TestWeatherObject(TestCase):
                           Temperature(temperature))
 
         weather_dict = weather.to_dict()
-        assert {'description', 'humidity', 'pressure', 'temperature', 'status', 'timestamp'} == \
+        assert {'description', 'humidity', 'pressure', 'temperature'} == \
                set(weather_dict.keys())
 
     def test_creation_from_open_weather(self):
@@ -62,11 +62,8 @@ class TestWeatherObject(TestCase):
             "id": 2950159, "name": "Berlin", "cod": 200}
         weather = Weather._from_open_weather(sample_weather_response)
         weather_dict = weather.to_dict()
-        assert 'timestamp' in weather_dict
-        weather_dict['timestamp'] = '2019-05-14 18:10:26'
         self.assertDictEqual(weather_dict, {"description": "clear sky", "pressure": {"unit": "hPa", "value": 1003},
-                                            "humidity": {"unit": "%", "value": 45}, "temperature": {"unit": "C", "value": "18"},
-                                            "status": "success", "timestamp": "2019-05-14 18:10:26"})
+                                            "humidity": {"unit": "%", "value": 45}, "temperature": {"unit": "C", "value": "18"}})
 
 
 class TestWeatherClient(TestCase):

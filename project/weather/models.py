@@ -6,7 +6,7 @@ def convert_kelvin_to_celsius(kelvin_string):
     return str(math.ceil(celsius))
 
 class Weather():
-    def __init__(self, description, humidity, pressure, temperature, status):
+    def __init__(self, description, humidity, pressure, temperature):
         self.description = description
         self.humidity = humidity
         self.pressure = pressure
@@ -22,8 +22,7 @@ class Weather():
         return cls(description,
                    humidity,
                    pressure,
-                   temperature,
-                   'success')
+                   temperature)
 
     def to_dict(self):
         return {

@@ -23,7 +23,6 @@ class OpenWeatherMapClient():
         self.city = '%s,DE' % city
 
     def get_weather(self, requested_time_string):
-        """requested_time is datetime object"""
         try:
             requested_time = datetime.strptime(requested_time_string, '%Y%m%d%H%M')
         except:
