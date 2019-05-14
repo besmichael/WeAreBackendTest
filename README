@@ -1,1 +1,6 @@
+To run the Django Server do the following:
+1. Install Python 3.6.0
+2. Activate the Virtual env I used (source virtenv/bin/activate). Normally I would have made an egg with a python file that listed dependencies.
+3. Step into the Project directory and run tests (python manage.py test)
+4. Provided tests pass, run project (python manage.py runserver)
 
