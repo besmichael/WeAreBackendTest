@@ -1,6 +1,5 @@
 from django.db import models
 import math
-import datetime
 
 def convert_kelvin_to_celsius(kelvin_string):
     celsius = float(kelvin_string) - 273.15
@@ -12,8 +11,6 @@ class Weather():
         self.humidity = humidity
         self.pressure = pressure
         self.temperature = temperature
-        self.status = status
-        self.timestamp = str(datetime.datetime.now()).split('.')[0]  # UTC timestamp e.g. '2019-05-14 19:37:18'
 
     @classmethod
     def _from_open_weather(cls, json_response):
@@ -34,8 +31,6 @@ class Weather():
             'pressure': self.pressure.to_dict(),
             'humidity': self.humidity.to_dict(),
             'temperature': self.temperature.to_dict(),
-            'status': self.status,
-            'timestamp': self.timestamp
         }
 
 class DataPoint():

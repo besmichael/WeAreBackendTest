@@ -29,28 +29,24 @@ class TestWeatherObject(TestCase):
         humidity = 'super wet lol'
         pressure = 'my ears are popping'
         temperature = 'like, a bajillion'
-        status = 'all good'
 
-        weather = Weather(description, humidity, pressure, temperature, status)
+        weather = Weather(description, humidity, pressure, temperature)
         assert weather.description == description
         assert weather.humidity == humidity
         assert weather.pressure == pressure
         assert weather.temperature == temperature
-        assert weather.status == status
-        assert weather.timestamp
+
 
     def test_to_dict(self):
         description = 'new weather object'
         humidity = 'super wet lol'
         pressure = 'my ears are popping'
         temperature = 'like, a bajillion'
-        status = 'all good'
 
         weather = Weather(description,
                           Humidity(humidity),
                           Pressure(pressure),
-                          Temperature(temperature),
-                          status)
+                          Temperature(temperature))
 
         weather_dict = weather.to_dict()
         assert {'description', 'humidity', 'pressure', 'temperature', 'status', 'timestamp'} == \

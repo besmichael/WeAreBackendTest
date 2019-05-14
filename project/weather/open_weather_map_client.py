@@ -17,10 +17,10 @@ class InvalidDateException(Exception):
 
 
 class OpenWeatherMapClient():
-    def __init__(self):
+    def __init__(self, city):
         self.api_url = 'http://api.openweathermap.org'
         self.api_key = '8db9f4f1eeca445db409bb4ef36cb811'  # Would never do this in a real system...
-        self.city = 'Berlin,DE'
+        self.city = '%s,DE' % city
 
     def get_weather(self, requested_time_string):
         """requested_time is datetime object"""
