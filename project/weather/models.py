@@ -3,7 +3,7 @@ import math
 import datetime
 
 def convert_kelvin_to_celsius(kelvin_string):
-    celsius = float(kelvin_string) - 273.0
+    celsius = float(kelvin_string) - 273.15
     return str(math.ceil(celsius))
 
 class Weather():

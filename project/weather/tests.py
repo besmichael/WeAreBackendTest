@@ -1,5 +1,7 @@
 from django.test import TestCase
 from .models import Weather, DataPoint, Temperature, Humidity, Pressure
+from .open_weather_map_client import OpenWeatherMapClient
+from datetime import datetime, timedelta
 
 # Create your tests here.
 class TestDataPoint(TestCase):
@@ -69,3 +71,18 @@ class TestWeatherObject(TestCase):
         self.assertDictEqual(weather_dict, {"description": "clear sky", "pressure": {"unit": "hPa", "value": 1003},
                                             "humidity": {"unit": "%", "value": 45}, "temperature": {"unit": "C", "value": "18"},
                                             "status": "success", "timestamp": "2019-05-14 18:10:26"})
+
+
+class TestWeatherClient():
+    def test_weather_client_time_window_parsing(self):
+        weather_possibility_one = {'dt_txt': "1990-01-01 12:05:05", 'weather': 'hot af'}
+        weather_possibility_two = {'dt_txt': "2005-05-07 18:05:05", 'weather': 'cold af'}
+        weather_possibilities = [weather_possibility_one, weather_possibility_two]
+        datetimeone = datetime(1990, 1, 1, 13)
+        datetimetwo = datetime(2005, 5, 7, 19)
+
+        weather_info_one = OpenWeatherMapClient.get_weather_for_time(weather_possibilities, datetimeone)
+        assert weather_info_one['weather'] == 'hot af'
+
+        weather_info_two = OpenWeatherMapClient.get_weather_for_time(weather_possibilities, datetimetwo)
+        assert weather_info_two['weather'] == 'cold af'
