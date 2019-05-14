@@ -3,4 +3,7 @@ To run the Django Server do the following:
 2. Activate the Virtual env I used (source virtenv/bin/activate). Normally I would have made an egg with a python file that listed dependencies.
 3. Step into the Project directory and run tests (python manage.py test)
 4. Provided tests pass, run project (python manage.py runserver)
+Hit the api with your prefered web browswer or command line tool at localhost (e.g. http://127.0.0.1:8000/weather/summary/munich/20190515/0100/)
 
+
+Note: the project did not specify that any cities outside of Berlin might be pinged, but any german city works in the URL. For this reason I refrained from handling bad city inputs.
