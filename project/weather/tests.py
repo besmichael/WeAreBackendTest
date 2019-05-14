@@ -1,7 +1,7 @@
 from django.test import TestCase
 from .models import Weather, DataPoint, Temperature, Humidity, Pressure
-from .open_weather_map_client import OpenWeatherMapClient
-from datetime import datetime, timedelta
+from .open_weather_map_client import OpenWeatherMapClient, InvalidDateException
+from datetime import datetime
 
 # Create your tests here.
 class TestDataPoint(TestCase):
@@ -73,7 +73,7 @@ class TestWeatherObject(TestCase):
                                             "status": "success", "timestamp": "2019-05-14 18:10:26"})
 
 
-class TestWeatherClient():
+class TestWeatherClient(TestCase):
     def test_weather_client_time_window_parsing(self):
         weather_possibility_one = {'dt_txt': "1990-01-01 12:05:05", 'weather': 'hot af'}
         weather_possibility_two = {'dt_txt': "2005-05-07 18:05:05", 'weather': 'cold af'}
@@ -86,3 +86,15 @@ class TestWeatherClient():
 
         weather_info_two = OpenWeatherMapClient.get_weather_for_time(weather_possibilities, datetimetwo)
         assert weather_info_two['weather'] == 'cold af'
+
+    def test_invalid_times(self):
+        weather_possibility_one = {'dt_txt': "1990-01-01 12:05:05", 'weather': 'hot af'}
+        weather_possibilities = [weather_possibility_one]
+        datetime_too_late = datetime(3000, 1, 1, 1)
+        datetime_too_early = datetime(1900, 1, 1, 1)
+
+        with self.assertRaises(InvalidDateException):
+            OpenWeatherMapClient.get_weather_for_time(weather_possibilities, datetime_too_late)
+
+        with self.assertRaises(InvalidDateException):
+            OpenWeatherMapClient.get_weather_for_time(weather_possibilities, datetime_too_early)
