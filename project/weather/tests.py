@@ -54,12 +54,8 @@ class TestWeatherObject(TestCase):
 
     def test_creation_from_open_weather(self):
         sample_weather_response = {
-            "coord": {"lon": 13.39, "lat": 52.52},
             "weather": [{"id": 800, "main": "Clear", "description": "clear sky", "icon": "01d"}], "base": "stations",
-            "main": {"temp": 290.43, "pressure": 1003, "humidity": 45, "temp_min": 289.82, "temp_max": 292.04},
-            "visibility": 10000, "wind": {"speed": 6.7, "deg": 150}, "clouds": {"all": 0}, "dt": 1557332035,
-            "sys": {"type": 1, "id": 1275, "message": 0.008, "country": "DE", "sunrise": 1557285761, "sunset": 1557340993},
-            "id": 2950159, "name": "Berlin", "cod": 200}
+            "main": {"temp": 290.43, "pressure": 1003, "humidity": 45, "temp_min": 289.82, "temp_max": 292.04}}
         weather = Weather._from_open_weather(sample_weather_response)
         weather_dict = weather.to_dict()
         self.assertDictEqual(weather_dict, {"description": "clear sky", "pressure": {"unit": "hPa", "value": 1003},

@@ -23,6 +23,8 @@ class OpenWeatherMapClient():
         self.city = '%s,DE' % city
 
     def get_weather(self, requested_time_string):
+        """Gets the weather for a given period in time, throws an InvalidDateException if the time is not within
+        the next 5 days"""
         try:
             requested_time = datetime.strptime(requested_time_string, '%Y%m%d%H%M')
         except:
@@ -35,6 +37,8 @@ class OpenWeatherMapClient():
 
     @classmethod
     def get_weather_for_time(cls, weather_info_list, requested_time):
+        """From a list of weather states from the api, it extracts the one that corresponds to the time given,
+        throws InvalidDateException if no weather information for the requested time is given."""
         for weather_possibility in weather_info_list:
             time_of_weather = datetime.strptime(weather_possibility['dt_txt'], WEATHERMAP_DATETIME_FORMAT)
             time_difference = requested_time - time_of_weather
