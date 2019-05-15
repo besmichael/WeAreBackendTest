@@ -7,3 +7,17 @@ Hit the api with your prefered web browswer or command line tool at localhost (e
 
 
 Note: the project did not specify that any cities outside of Berlin might be pinged, but any german city works in the URL. For this reason I refrained from handling bad city inputs.
+
+
+Answers to Additional Questions:
+1. In order to allow for Kelvin in the API response I would add a query parameter (e.g. tempunit=kevlin).
+It should be a query parameter and not a part of the path because the resource being fetched is still the same. 
+2. I would add end-to-end tests to the service that the complete service on releases. These would include getting the (weather summary, temperature, pressure, humidity) at 
+(now, a day from now, a week from now, a week in the past), for (berlin, munich, city that doesn't exist).
+3. I try to keep classes and functions as contained as possible, and init methods as simple as possible. This allows for easy modular testing of
+each classes function. Because this service interacts with an outside API a mock requester should be created in the unit tests to test the client.
+4. I would use Sphinx to auto-generate documentation from the code itsself. This way edits of code directly modify the documentation reducing the 
+chance of the API and documentation fallint out of sync. Also Sphinx is cool. 
+5. I think that this service is best restricted by throttling the users by IP. The weather forcast at OpenMap only changes once every 10 minutes,
+so a throttling of 1 request per minute is more than enough.
+6. I'm not sure what this question is asking.
